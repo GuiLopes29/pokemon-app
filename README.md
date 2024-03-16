@@ -1,46 +1,34 @@
-# Getting Started with Create React App
+# Projeto Pokédex
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto é uma implementação de uma Pokédex, uma enciclopédia virtual de Pokémon. Ele permite que os usuários visualizem informações detalhadas sobre diferentes Pokémon, incluindo seus tipos, estatísticas e evoluções.
 
-## Available Scripts
+## Funcionalidades
 
-In the project directory, you can run:
+- **Filtro de Tipo**: Os usuários podem filtrar Pokémon por tipo usando o componente `TypeFilter`. Este componente faz uma chamada à API para buscar todos os tipos de Pokémon disponíveis e os exibe em um menu suspenso. Quando um tipo é selecionado, a lista de Pokémon é filtrada para incluir apenas Pokémon desse tipo.
 
-### `yarn start`
+<!-- - **Barra de Busca**: Os usuários podem buscar Pokémon pelo nome usando a barra de busca. Quando o usuário digita um nome na barra de busca e pressiona `Enter` ou clica no botão de busca, a lista de Pokémon é filtrada para incluir apenas o Pokémon cujo nome corresponde ao valor da busca. -->
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Detalhes do Pokémon**: Quando um Pokémon é selecionado, alguns dos detalhes desse Pokémon são exibidos em um modal. Isso inclui o nome do Pokémon, uma imagem do Pokémon, os tipos do Pokémon e as estatísticas do Pokémon. As estatísticas são exibidas como barras verticais com cores distintas.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Implementação
 
-### `yarn test`
+O projeto é implementado usando React e styled-components. A API do Pokémon é usada para buscar as informações do Pokémon.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Os principais componentes do projeto são:
 
-### `yarn build`
+- `App`: Este é o componente principal do projeto. Ele gerencia o estado do filtro e da busca e renderiza os componentes `TypeFilter`, `SearchBar` e `PokemonList`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- `TypeFilter`: Este componente renderiza um menu suspenso com todos os tipos de Pokémon disponíveis. Quando um tipo é selecionado, ele chama a função `onFilterChange` passada pelas props para atualizar o estado do filtro no componente `App`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<!-- - `SearchBar`: Este componente renderiza uma barra de busca e um botão de busca. Quando o usuário digita na barra de busca e pressiona `Enter` ou clica no botão de busca, ele chama a função `onSearchClick` passada pelas props para atualizar o estado do filtro no componente `App` com o valor da busca. -->
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `PokemonList`: Este componente busca a lista de todos os Pokémon da API do Pokémon e os renderiza em uma lista. Ele usa o valor do filtro passado pelas props para filtrar a lista de Pokémon.
 
-### `yarn eject`
+- `PokemonDetails`: Este componente é renderizado quando um Pokémon é selecionado. Ele busca os detalhes do Pokémon selecionado da API do Pokémon e os exibe em um modal.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Próximos Passos (Segunda-feira 18/03)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [ ] Adicionar barra de busca por nome **(Em andamento)**
+- [ ] Implementar um sistema de autenticação de usuários.
+- [ ] Implementar um sistema de troca de Pokémon entre usuários.
+- [ ] Adicionar mais detalhes e informações sobre os Pokémon. **(Melhorando o CSS)**
