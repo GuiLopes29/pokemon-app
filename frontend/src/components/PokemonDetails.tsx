@@ -65,9 +65,38 @@ const StatBar = styled.div`
   background-color: ${(props) => props.color || "#303943"};
 `;
 
-function capitalizeFirstLetter(string: string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+const StatusContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+`;
+
+const StatusBar = styled.div`
+  background-color: #ccc;
+  border-radius: 25px;
+  width: 200px; // Tamanho fixo da barra de status
+  height: 20px;
+  overflow: hidden;
+`;
+
+const StatusFill = styled.div<{ percentage: number; color: string }>`
+  background-color: ${(props) => props.color};
+  width: ${(props) =>
+    (props.percentage / 100) *
+    200}px; // Calcula a largura com base na porcentagem
+  height: 100%;
+`;
+
+const statusNameMapping: { [key: string]: string } = {
+  hp: "HP",
+  attack: "ATK",
+  defense: "DEF",
+  speed: "SPD",
+  "special-attack": "SP-ATK",
+  "special-defense": "SP-DEF",
+};
 
 const PokemonDetails: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
   const [details, setDetails] = useState<Details | null>(null);
@@ -97,15 +126,17 @@ const PokemonDetails: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
       </PokemonType>
       <PokemonStats>
         {details.stats.map((stat, index) => (
-          <StatBar
-            key={index}
-            style={{
-              width: `${stat.base_stat}%`,
-              backgroundColor: getColorForStat(stat.stat.name),
-            }}
-          >
-            {capitalizeFirstLetter(stat.stat.name)}
-          </StatBar>
+          <StatusContainer key={index}>
+            <div>
+              <div>{statusNameMapping[stat.stat.name]}</div>
+              <StatusBar>
+                <StatusFill
+                  percentage={stat.base_stat}
+                  color={getColorForStat(stat.stat.name)}
+                />
+              </StatusBar>
+            </div>
+          </StatusContainer>
         ))}
       </PokemonStats>
     </DetailsContainer>

@@ -1,14 +1,17 @@
 import { Pool } from "pg";
 import dotenv from "dotenv";
+import knex from "knex";
 
 dotenv.config();
 
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "pokemon",
-  password: process.env.DB_PASSWORD,
-  port: 5432,
+const db = knex({
+  client: "pg",
+  connection: {
+    host: "localhost",
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: "pokemon_db",
+  },
 });
 
-export default pool;
+export default db;

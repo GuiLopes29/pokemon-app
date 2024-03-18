@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import TypeFilter from "./components/TypeFilter";
 import PokemonList from "./components/PokemonList";
-import Login from "./components/Login"; // Certifique-se de importar o componente Login
+import Login from "./components/Login";
 
 const App: React.FC = () => {
   const [filter, setFilter] = useState<string>("");
@@ -19,8 +19,14 @@ const App: React.FC = () => {
           path="/"
           element={
             <div>
-              <TypeFilter onFilterChange={handleFilterChange} />
-              <PokemonList filter={filter} />
+              {localStorage.getItem("token") ? (
+                <>
+                  <TypeFilter onFilterChange={handleFilterChange} />
+                  <PokemonList filter={filter} />
+                </>
+              ) : (
+                <Login />
+              )}
             </div>
           }
         />

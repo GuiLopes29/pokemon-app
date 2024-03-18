@@ -1,18 +1,30 @@
 version: '3'
 services:
+
   db:
-    image: postgres
+    container_name: pokemon_db
+    image: 'postgres:latest'
+    restart: always
     environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: pokemon_db
+      POSTGRES_USER: pokemon
+      POSTGRES_PASSWORD: password
+    ports:
+      - '5432:5432'
     volumes:
       - ./data:/var/lib/postgresql/data
-  backend:
-    build: ./backend
-    ports:
-      - 3000:3000
-    depends_on:
-      - db
-  frontend:
-    build: ./frontend
-    ports:
-      - 3001:3000
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # backend:
+  #   build: ./backend
+  #   ports:
+  #     - 3000:3000
+  #   depends_on:
+  #     - db
+
+  # frontend:
+  #   build: ./frontend
+  #   ports:
+  #     - 3001:3000
+  #   depends_on:
+  #     - backend

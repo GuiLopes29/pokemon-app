@@ -1,11 +1,19 @@
 import { useState, forwardRef } from "react";
 import styled from "styled-components";
 import PokemonDetails from "./PokemonDetails";
+import Pokeball from "./Pokeball";
 
 interface Pokemon {
   name: string;
   url: string;
 }
+
+const PokeballWrapper = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 99999;
+`;
 
 const Card = styled.div`
   width: 200px;
@@ -52,9 +60,36 @@ const ModalContent = styled.div`
 `;
 
 const CloseButton = styled.button`
+  background-color: transparent;
+  border: none;
   position: absolute;
   top: 10px;
   right: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: rotate(90deg);
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 24px;
+    background-color: #000;
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
 `;
 
 const PokemonCard = forwardRef<HTMLDivElement, { pokemon: Pokemon }>(
@@ -75,6 +110,9 @@ const PokemonCard = forwardRef<HTMLDivElement, { pokemon: Pokemon }>(
     return (
       <>
         <Card ref={ref} onClick={handleOpenModal}>
+          <PokeballWrapper>
+            <Pokeball /> {/* Adicione o componente Pokeball */}
+          </PokeballWrapper>
           <img src={imageUrl} alt={pokemon.name} />
           <h2>{pokemon.name}</h2>
         </Card>
@@ -82,7 +120,7 @@ const PokemonCard = forwardRef<HTMLDivElement, { pokemon: Pokemon }>(
           <Modal onClick={handleCloseModal}>
             <ModalContent onClick={(e) => e.stopPropagation()}>
               <PokemonDetails pokemon={pokemon} />
-              <CloseButton onClick={handleCloseModal}>Fechar</CloseButton>
+              <CloseButton onClick={handleCloseModal}></CloseButton>
             </ModalContent>
           </Modal>
         )}
