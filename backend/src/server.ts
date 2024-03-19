@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth";
+import pokemonRoutes from "./routes/pokemon";
 import morgan from "morgan";
 import cors from "cors";
 
@@ -13,5 +14,6 @@ app.use(morgan("dev")); // Log HTTP requests
 app.use(cors()); // Enable CORS
 
 app.use("/", authRoutes);
+app.use("/capture", pokemonRoutes);
 
 export default app;

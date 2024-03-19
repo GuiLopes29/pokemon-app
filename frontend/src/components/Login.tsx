@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
+import { Snackbar } from "@material-ui/core";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 interface User {
   username: string;
@@ -83,12 +89,24 @@ const LoginScreen = styled.div`
   padding: 20px; // adicione algum padding para separar o formulário das bordas da tela
 `;
 
-const Login: React.FC = () => {
+interface LoginProps {
+  tokenExpired?: boolean;
+}
+
+const Login: React.FC<LoginProps> = ({ tokenExpired }) => {
   const [user, setUser] = useState<User>({ username: "", password: "" });
   const [usernameError, setUsernameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [register, setRegister] = useState(false);
+  const [open, setOpen] = useState(!!tokenExpired);
 
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.target.name]: e.target.value });
     if (e.target.name === "username") setUsernameError(false);
@@ -112,6 +130,7 @@ const Login: React.FC = () => {
 
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         localStorage.setItem("token", data.token);
 
         // Redireciona o usuário para a página inicial
@@ -155,6 +174,7 @@ const Login: React.FC = () => {
   return (
     <LoginScreen>
       <LoginContainer>
+        {tokenExpired}
         <LoginForm onSubmit={register ? handleRegister : handleSubmit}>
           <LoginInput
             type="text"
@@ -187,6 +207,11 @@ const Login: React.FC = () => {
           </GuestButton>
         </LoginForm>
       </LoginContainer>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          Seu token expirou. Por favor, faça login novamente.
+        </Alert>
+      </Snackbar>
     </LoginScreen>
   );
 };

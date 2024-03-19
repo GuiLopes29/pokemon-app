@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Snackbar } from "@material-ui/core";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import styled from "styled-components";
 
 interface Pokemon {
@@ -7,6 +9,7 @@ interface Pokemon {
 }
 
 interface Details {
+  id: number;
   name: string;
   sprites: {
     front_default: string;
@@ -102,6 +105,10 @@ const ImageContainer = styled.div`
   align-items: center;
 `;
 
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const statusNameMapping: { [key: string]: string } = {
   hp: "HP",
   attack: "ATK",
@@ -114,6 +121,52 @@ const statusNameMapping: { [key: string]: string } = {
 const PokemonDetails: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
   const [details, setDetails] = useState<Details | null>(null);
 
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState("");
+  const [severity, setSeverity] = React.useState<
+    "success" | "error" | "info" | "warning" | undefined
+  >("info");
+
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const catchPokemon = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/capture/catch", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          pokemonIndex: details?.id,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.message === "Pokemon caught") {
+        setMessage("Pokemon capturado! 🎉");
+        setSeverity("success");
+      } else {
+        setMessage("Pokemon escapou! 😢");
+        setSeverity("error");
+      }
+      setOpen(true);
+    } catch (err) {
+      console.error(err);
+      setMessage(
+        "Ocorreu um erro ao tentar capturar o Pokémon! Tente novamente mais tarde"
+      );
+      setSeverity("error");
+      setOpen(true);
+    }
+  };
   useEffect(() => {
     fetch(pokemon.url)
       .then((response) => response.json())
@@ -130,9 +183,14 @@ const PokemonDetails: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
     <DetailsContainer>
       <ImageContainer>
         <PokemonImage src={details.sprites.front_default} alt={details.name} />
-        <PokeballWrapper>
+        <PokeballWrapper onClick={catchPokemon}>
           <img src="/pokeball.svg" alt="Pokeball" />
         </PokeballWrapper>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity={severity}>
+            {message}
+          </Alert>
+        </Snackbar>
       </ImageContainer>
       <PokemonName>{details.name}</PokemonName>
       <PokemonType>
