@@ -1,6 +1,6 @@
 # Projeto Pokédex
 
-Este projeto é uma implementação de uma Pokédex, uma enciclopédia virtual de Pokémon. Ele permite que os usuários visualizem informações detalhadas sobre diferentes Pokémon, incluindo seus tipos, estatísticas e evoluções.
+Este projeto é uma implementação de uma Pokédex, uma enciclopédia virtual de Pokémon. Ele permite que os usuários visualizem informações detalhadas sobre diferentes Pokémon, incluindo seus tipos e estatísticas
 
 ## Funcionalidades
 
@@ -31,4 +31,4 @@ Os principais componentes do projeto são:
 - [X] Implementar um sistema de autenticação de usuários.
 - [ ] Implementar um sistema de troca de Pokémon entre usuários.
 - [X] Adicionar mais detalhes e informações sobre os Pokémon. **(Melhorando o CSS)**
-- [ ] Implimentar sistema para captura de pokemons **(Em andamento, finalização 19/03)**
+- [x] Implimentar sistema para captura de pokemons **(Em andamento, finalização 19/03)**
