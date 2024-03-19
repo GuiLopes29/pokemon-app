@@ -14,6 +14,6 @@ app.use(morgan("dev")); // Log HTTP requests
 app.use(cors()); // Enable CORS
 
 app.use("/", authRoutes);
-app.use("/capture", pokemonRoutes);
+app.use("/pokemon", pokemonRoutes);
 
 export default app;

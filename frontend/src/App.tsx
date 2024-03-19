@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import TypeFilter from "./components/TypeFilter";
 import PokemonList from "./components/PokemonList";
 import Layout from "./components/ExpiredToken";
+import TopMenu from "./components/TopMenu";
 
 const App: React.FC = () => {
   const [filter, setFilter] = useState<string>("");
@@ -29,9 +30,10 @@ const App: React.FC = () => {
           element={<Login tokenExpired={isTokenExpired} />}
         />
         <Route
-          path="/minha-pokedex"
+          path="/pokedex"
           element={
             <Layout tokenExpired={isTokenExpired}>
+              <TopMenu />
               {!isTokenExpired && localStorage.getItem("token") ? (
                 <PersonalPokedex />
               ) : (
@@ -44,6 +46,7 @@ const App: React.FC = () => {
           path="/"
           element={
             <Layout tokenExpired={isTokenExpired}>
+              <TopMenu />
               {!isTokenExpired && localStorage.getItem("token") ? (
                 <>
                   <TypeFilter onFilterChange={handleFilterChange} />

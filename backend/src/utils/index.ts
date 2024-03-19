@@ -32,7 +32,7 @@ function authenticateToken(req: Request, res: Response, next: NextFunction) {
 
   jwt.verify(token, process.env.JWT_SECRET, (err: Error, user: any) => {
     if (err) return res.sendStatus(403);
-    req.user = user; // Aqui é onde o userId é definido no req
+    req.user = user;
     next();
   });
 }

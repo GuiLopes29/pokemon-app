@@ -74,23 +74,25 @@ const PokemonList: React.FC<PokemonListProps> = ({ filter }) => {
   }, [filter]);
 
   return (
-    <List>
-      {pokemonList &&
-        pokemonList.map((pokemon, index) => {
-          if (pokemonList.length === index + 1) {
-            return (
-              <PokemonCard
-                ref={lastPokemonRef}
-                key={pokemon.name}
-                pokemon={pokemon}
-              />
-            );
-          } else {
-            return <PokemonCard key={pokemon.name} pokemon={pokemon} />;
-          }
-        })}
-      {!nextUrl && <div>You've reached the end of the list!</div>}
-    </List>
+    <div>
+      <List>
+        {pokemonList &&
+          pokemonList.map((pokemon, index) => {
+            if (pokemonList.length === index + 1) {
+              return (
+                <PokemonCard
+                  ref={lastPokemonRef}
+                  key={pokemon.name}
+                  pokemon={pokemon}
+                />
+              );
+            } else {
+              return <PokemonCard key={pokemon.name} pokemon={pokemon} />;
+            }
+          })}
+        {!nextUrl && <div>You've reached the end of the list!</div>}
+      </List>
+    </div>
   );
 };
 

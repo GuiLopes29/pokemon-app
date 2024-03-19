@@ -20,7 +20,7 @@ router.post(
 
       // Se o número aleatório for menor ou igual à taxa de captura, o Pokémon é capturado
       if (catchRate <= randomNumber) {
-        const { pokemonIndex } = req.body;
+        const { pokemonIndex, pokemonName } = req.body;
         const existingPokemon = await db("pokemons_treinadores")
           .where({ index: pokemonIndex, treinador_id: userId })
           .first();
@@ -33,7 +33,7 @@ router.post(
         } else {
           // Se o Pokémon não existir, crie um novo registro
           await db("pokemons_treinadores").insert({
-            pokemon_nome: "pokemon",
+            pokemon_nome: pokemonName,
             treinador_id: userId,
             index: pokemonIndex,
             quantity: 1,
@@ -49,5 +49,18 @@ router.post(
     }
   }
 );
+
+router.get("/", authenticateToken, async (req: Request, res: Response) => {
+  try {
+    const userId = req.user.id;
+    const pokemons = await db("pokemons_treinadores").where({
+      treinador_id: userId,
+    });
+    res.status(200).json(pokemons);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 export default router;
