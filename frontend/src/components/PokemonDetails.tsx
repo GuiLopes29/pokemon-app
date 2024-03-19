@@ -16,10 +16,11 @@ interface Details {
 }
 
 const DetailsContainer = styled.div`
+  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  flex-direction: column;
   background-color: #f5f5f5;
   padding: 20px;
   border-radius: 10px;
@@ -59,12 +60,6 @@ const PokemonStats = styled.div`
   justify-content: space-between;
 `;
 
-const StatBar = styled.div`
-  width: 100%;
-  height: 20px;
-  background-color: ${(props) => props.color || "#303943"};
-`;
-
 const StatusContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -87,6 +82,24 @@ const StatusFill = styled.div<{ percentage: number; color: string }>`
     (props.percentage / 100) *
     200}px; // Calcula a largura com base na porcentagem
   height: 100%;
+`;
+
+const PokeballWrapper = styled.div`
+  position: absolute;
+  z-index: 10;
+  margin-bottom: 60px;
+  margin-left: -10px;
+
+  img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+  }
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const statusNameMapping: { [key: string]: string } = {
@@ -115,7 +128,12 @@ const PokemonDetails: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
 
   return (
     <DetailsContainer>
-      <PokemonImage src={details.sprites.front_default} alt={details.name} />
+      <ImageContainer>
+        <PokemonImage src={details.sprites.front_default} alt={details.name} />
+        <PokeballWrapper>
+          <img src="/pokeball.svg" alt="Pokeball" />
+        </PokeballWrapper>
+      </ImageContainer>
       <PokemonName>{details.name}</PokemonName>
       <PokemonType>
         {details.types.map((type, index) => (

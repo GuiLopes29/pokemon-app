@@ -1,19 +1,11 @@
 import { useState, forwardRef } from "react";
 import styled from "styled-components";
 import PokemonDetails from "./PokemonDetails";
-import Pokeball from "./Pokeball";
 
 interface Pokemon {
   name: string;
   url: string;
 }
-
-const PokeballWrapper = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 99999;
-`;
 
 const Card = styled.div`
   width: 200px;
@@ -110,9 +102,6 @@ const PokemonCard = forwardRef<HTMLDivElement, { pokemon: Pokemon }>(
     return (
       <>
         <Card ref={ref} onClick={handleOpenModal}>
-          <PokeballWrapper>
-            <Pokeball /> {/* Adicione o componente Pokeball */}
-          </PokeballWrapper>
           <img src={imageUrl} alt={pokemon.name} />
           <h2>{pokemon.name}</h2>
         </Card>
