@@ -16,7 +16,7 @@ O projeto é implementado usando React e styled-components. A API do Pokémon é
 
 Os principais componentes do projeto são:
 
-- `App`: Este é o componente principal do projeto. Ele gerencia o estado do filtro e da busca e renderiza os componentes `TypeFilter`, `SearchBar` e `PokemonList`.
+- `App`: Este é o componente principal do projeto. Ele gerencia o estado do filtro <!--e da busca--> e renderiza os componentes `TypeFilter`, <!--`SearchBar` --> e `PokemonList`.
 
 - `TypeFilter`: Este componente renderiza um menu suspenso com todos os tipos de Pokémon disponíveis. Quando um tipo é selecionado, ele chama a função `onFilterChange` passada pelas props para atualizar o estado do filtro no componente `App`.
 
