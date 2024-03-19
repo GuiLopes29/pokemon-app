@@ -28,7 +28,7 @@ Os principais componentes do projeto são:
 
 ## Próximos Passos (Segunda-feira 18/03)
 
-- [ ] Adicionar barra de busca por nome **(Em andamento)**
-- [ ] Implementar um sistema de autenticação de usuários.
+- [X] Implementar um sistema de autenticação de usuários.
 - [ ] Implementar um sistema de troca de Pokémon entre usuários.
-- [ ] Adicionar mais detalhes e informações sobre os Pokémon. **(Melhorando o CSS)**
+- [X] Adicionar mais detalhes e informações sobre os Pokémon. **(Melhorando o CSS)**
+- [ ] Implimentar sistema para captura de pokemons **(Em andamento, finalização 19/03)**
