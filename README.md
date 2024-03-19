@@ -53,10 +53,10 @@ Os principais componentes do projeto são:
 
 ## Informações sobre a aplicação:
 
-1º Conforme descer a tela de pokemons e pokedex, continuará buscando continuamente os próximos pokemons (de acordo com a api).
-2º A taxa de captura dos pokemons é aleatória, atualmente está com uma dificuldade alta para não sobrecarregar a pokedex com diversos pokemons.
-3º O filtro por tipo, possui um bug que quando chega no fim dos pokemons daquele tipo, passa a buscar normalmente os pokemons.
-4º A aplicação possui responsividade, porém conforme for, pode surgir algum bug.
+1º Conforme descer a tela de pokemons e pokedex, continuará buscando continuamente os próximos pokemons (de acordo com a api). <br>
+2º A taxa de captura dos pokemons é aleatória, atualmente está com uma dificuldade alta para não sobrecarregar a pokedex com diversos pokemons. <br>
+3º O filtro por tipo, possui um bug que quando chega no fim dos pokemons daquele tipo, passa a buscar normalmente os pokemons. <br>
+4º A aplicação possui responsividade, porém conforme for, pode surgir algum bug. <br>
 
 ## Próximos Passos (Segunda-feira 18/03)
 
